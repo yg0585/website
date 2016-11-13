@@ -19,6 +19,7 @@
 			<textarea cols="100" rows="10" name="content">
 				
 			</textarea><br>
+			<input type="file" name="upflie[]" value="파일 선택"><br>
 			<input type="submit" value="글쓰기">
 		</form>
 	</div>

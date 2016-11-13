@@ -6,38 +6,54 @@
 	session_start();
 	include('./db_connect.php');
 	?>
+	
 </head>
 <body>
-
-	<? if(!isset($_SESSION['user_id'])) {?>
-	<a href="/login.php"> 로그인 </a>
-	<a href="./member.php">회원가입</a>
-	<? } ?>
-	<? if(isset($_SESSION['user_id'])) {?>
-	<a href="./logout.php">로그아웃 </a>
-	<a href="./test.php">테스트</a>
-	<a href="./board/write.php">글쓰기</a>
-	<div style="text-align:right;">
-		<a> <? echo $_SESSION['user_id']; ?></a>
-	</div>
-	<? } ?>
+<?
+	include('./header.php');
+?>
+	
 
 <?
-$sql = "SELECT content FROM user ORDER BY `num` ASC";
+$sql = "SELECT * FROM board ORDER BY `num` ASC";
 $result = mysql_query($sql, $conn);
-$row = @mysql_fetch_array($result);
+
 ?>
-<table>
-	<tr>
-		<td>
-		</td>
-		<td>
-		</td>
-		<td>
-		</td>
-		<td>
-		</td>	
-	</tr>
-</table>
+<div>
+	<table class="table">
+		<tr>
+			<td>
+			번호
+			</td>
+			<td>
+			글 작성자
+			</td>
+			<td>
+			글 제목
+			</td>
+		</tr>
+	<? while ($row = mysql_fetch_array($result)) {
+		 ?>
+		<tr>
+			<td>
+				<a href="./board/read.php?num=<?echo $row['num'];?>"><? echo $row['num']; ?></a>
+			</td>
+			<td>
+				<a href="./board/read.php?num=<?echo $row['num'];?>"><? echo $row['id']; ?></a>
+			</td>
+			<td>
+				<a href="./board/read.php?num=<?echo $row['num'];?>"><? echo $row['title']; ?></a>
+			</td>
+			<td>
+			</td>	
+		</tr>
+	<? 
+	}
+	?>
+	</table>
+</div>
+<?
+include('./footer.php');
+?>
 </body>
 </html>	
